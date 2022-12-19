@@ -1,7 +1,7 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.0.0'
-	id 'io.spring.dependency-management' version '1.1.0'
+	 id("org.springframework.boot") version "2.7.4"
+    id("io.spring.dependency-management") version "1.0.14.RELEASE"
+    id 'java'
 }
 
 group = 'com.egen'
@@ -13,12 +13,44 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	runtimeOnly 'org.postgresql:postgresql'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+   
+    //Using Springdoc instead of springfox
+    implementation("org.springdoc:springdoc-openapi-ui:1.6.11")
+
+    //Postgres
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.7.4")
+    implementation("org.postgresql:postgresql:42.5.0")
+
+    //JunitMockito
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.0")
+    testImplementation("org.junit.platform:junit-platform-runner:1.9.0")
+    testImplementation("org.mockito:mockito-inline:4.8.0")
+    testImplementation("org.assertj:assertj-core:3.23.1")
+
+    //lombok
+
+    compileOnly("org.projectlombok:lombok:1.18.24")
+    annotationProcessor("org.projectlombok:lombok:1.18.24")
+
+    testCompileOnly("org.projectlombok:lombok:1.18.24")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.24")
+
+    //mapstruct
+    implementation("org.mapstruct:mapstruct:1.4.2.Final")
+    annotationProcessor("org.mapstruct:mapstruct-processor:1.4.2.Final")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    //EmbeddedDB for tests
+    testImplementation("io.zonky.test:embedded-postgres:2.0.0")
+    testImplementation("io.zonky.test:embedded-database-spring-test:2.1.2")
+
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
+
+test {
+    useJUnitPlatform()
 }
